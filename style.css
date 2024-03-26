@@ -1,0 +1,27 @@
+html{
+    background-color: black;
+    color: aqua;
+    font-size: large;
+}
+header{
+    display: inline-block;
+}
+#mapbox{
+    border: 2px solid rgb(255, 0, 255);
+    width: 40%;
+    height: auto;
+}
+#sidelist{
+    border: 2px solid rgb(255, 0, 255);
+    width: 20%;
+    height: 100%;
+}
+#content{
+    border: 2px solid rgb(255,0,255);
+    width: 60%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-gap: 1rem;
+}
