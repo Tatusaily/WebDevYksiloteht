@@ -1,27 +1,24 @@
-html{
-    background-color: black;
-    color: aqua;
-    font-size: large;
+body{
+    padding: 5% 10%;
 }
-header{
-    display: inline-block;
+nav{
+    background-color: antiquewhite;
+}
+#content{
+    border: 2px solid rgb(4, 0, 255);
+    display: flex;
+    justify-content: center;
+    background-color: bisque;
+    padding: 2rem;
 }
 #mapbox{
     border: 2px solid rgb(255, 0, 255);
-    width: 40%;
-    height: auto;
+    order: 1;
+    flex-grow: calc(2/3);
+    height: 30rem;
 }
 #sidelist{
-    border: 2px solid rgb(255, 0, 255);
-    width: 20%;
-    height: 100%;
-}
-#content{
-    border: 2px solid rgb(255,0,255);
-    width: 60%;
-    height: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    grid-gap: 1rem;
+    border: 2px solid rgb(29, 182, 9);
+    order: 3;
+    flex-grow: calc(1/3);
 }
