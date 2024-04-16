@@ -23,6 +23,8 @@ const restIcon = L.divIcon({className: 'rest-div-icon'});
 })();
 
 /** Quick HTML element maker
+ * 
+ * type - textcontent - id
 */
 const elementMaker = (type, text = "", id) => {
     const element = document.createElement(type);
@@ -30,6 +32,110 @@ const elementMaker = (type, text = "", id) => {
     element.id = id;
     return element;
   };
+
+/** Modal Menu Maker
+ * 
+ * @param {object} restaurant
+ * @returns {object} modal element with buttons and menu
+ * @example like this:
+ * ╔════════════════════╗
+ * ║ X          name    ║
+ * ║                    ║
+ * ║ Daily      Weekly  ║
+ * ║ list list list     ║
+ * ║ list list list     ║
+ * ╚════════════════════╝
+ */
+const menumaker = async (restaurant, modal) => {
+    const topbar = elementMaker("div", "", "topbar");
+    modal.appendChild(topbar);
+    const closebutton = elementMaker("button", "X", "closeButton");
+    closebutton.onclick = function(){
+        modal.close();
+    };
+    topbar.appendChild(closebutton);
+    const menubody = elementMaker("div", "", "menubody");
+    modal.appendChild(menubody);
+    let dailylist;
+    let weeklylist;
+
+    // Get daily and weekly menudata => into lists
+    getRestaurantMenu(restaurant._id).then((data) => {
+        if (data) {
+            const [dailydata, weeklydata] = [data[0], data[1]];
+            dailylist = elementMaker("ul", "", "dailymenu");
+            if (dailydata.error){
+                dailylist.appendChild(elementMaker("li", dailydata.error));
+            } else {
+                dailydata.courses.forEach((dish) => {
+                    const li = elementMaker("li", "");
+                    li.appendChild(elementMaker("h3", dish.name ? dish.name : "No name"));
+                    li.appendChild(elementMaker("p", dish.price ? dish.price : "No price"));
+                    li.appendChild(elementMaker("p", dish.diets ? dish.diets : "No allergens"));
+                    dailylist.appendChild(li);
+                });
+            }
+            menubody.appendChild(dailylist);
+
+            weeklylist = elementMaker("ul", "", "weeklymenu");
+            if (!weeklydata.days || weeklydata.days.length === 0){
+                weeklylist.appendChild(elementMaker("li", weeklydata.error));
+            } else {
+                weeklydata.days.forEach((day) => {
+                    const li = elementMaker("li", "");
+                    li.appendChild(elementMaker("h3", day.date ? day.name : "No day name"));
+                    day.courses.forEach((dish) => {
+                        const dishli = elementMaker("li", "");
+                        dishli.appendChild(elementMaker("h4", dish.name ? dish.name : "No name"));
+                        dishli.appendChild(elementMaker("p", dish.price ? dish.price : "No price"));
+                        dishli.appendChild(elementMaker("p", dish.diets ? dish.diets : "No allergens"));
+                        li.appendChild(dishli);
+                    });
+                    weeklylist.appendChild(li);
+                });
+            }
+            weeklylist.style.display = "none";
+            menubody.appendChild(weeklylist);
+
+            const dailybutton = elementMaker("button", "Daily", "dailyButton");
+            dailybutton.onclick = function(){
+                dailylist.style.display = "block";
+                weeklylist.style.display = "none";
+            };
+            menubody.appendChild(dailybutton);
+            
+            const weeklybutton = elementMaker("button", "Weekly", "weeklyButton");
+            weeklybutton.onclick = function(){
+                dailylist.style.display = "none";
+                weeklylist.style.display = "block";
+            };
+            menubody.appendChild(weeklybutton);
+
+        } else {
+            console.error("Restaurant data is not ready:", data);
+        }
+    });
+};
+
+/**
+ * Get restaurant menu from API by ID
+ * @param {string} id - restaurant id (not company id)
+ * @returns {object} restaurant menu
+*/
+const getRestaurantMenu = async (id) => {
+    const requestdaily = fetch(`https://10.120.32.94/restaurant/api/v1/restaurants/daily/${id}/fi`)
+        .then(response => response.json());
+    if (!requestdaily.ok) {
+        requestdaily.error = "Daily menu not available"};
+
+    const requestweekly = fetch(`https://10.120.32.94/restaurant/api/v1/restaurants/weekly/${id}/fi`)
+        .then(response => response.json());
+    if (!requestweekly.ok) {
+        requestweekly.error = "Weekly menu not available"};
+
+    return Promise.all([requestdaily, requestweekly]);
+};
+
 
 /**
  * Refresh restaurants on map and on the list
@@ -42,10 +148,17 @@ const refreshRestRestaurants = () => {
     restaurants.forEach(restaurant => {
         // Marker for each restaurant
         const marker = L.marker([restaurant.location.coordinates[1], restaurant.location.coordinates[0]], {icon: restIcon}).addTo(markergroup);
+        // Modal menu construct and function:
+        // Create blank modal and continue.
+        // Fetching modal data is async, so it will be added later.
+        const modal = elementMaker("dialog", "", "menuModal");
+        menumaker(restaurant, modal)
+        document.body.appendChild(modal);
         marker.on('click', function(){
-            //TODO: Show menu to user
+            modal.showModal();
             console.log(restaurant);
         });
+        
         // List item for each restaurant
         const li2 = elementMaker("ul");
         li2.onclick = function(){

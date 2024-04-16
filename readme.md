@@ -1,7 +1,7 @@
 <ul>
     <h3>Minimi:</h3>
     <li style="text-decoration:overline">Ravintolat listattu</li> 
-    <li>Päivän / Viikon ruokalista saatavilla valitusta ravintolasta</li>
+    <li style="text-decoration:overline"> Päivän / Viikon ruokalista saatavilla valitusta ravintolasta</li>
     <li style="text-decoration:overline">Ravintolat kartalle</li>
     <li>Lähin ravintola korostettu/valittu automaattisesti</li>
 </ul>
