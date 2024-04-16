@@ -57,7 +57,7 @@ const refreshRestRestaurants = () => {
 async function getRestaurants(){
     try{
         console.log("Fetching restaurants...");
-        return fetch('https://10.120.32.94/restaurant/api/v1/restaurants', {signal: AbortSignal.timeout(2000)})
+        await fetch('https://10.120.32.94/restaurant/api/v1/restaurants', {signal: AbortSignal.timeout(2000)})
         .then(response => {
             if (!response.ok) {
                 throw new Error("HTTP error " + response.status);
