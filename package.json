@@ -1,0 +1,12 @@
+{
+  "name": "webdevyksiloteht",
+  "version": "1.0.0",
+  "description": "<ul>\r     <h3>Minimi:</h3>\r     <li style=\"text-decoration:overline\">Ravintolat listattu</li> \r     <li>Päivän / Viikon ruokalista saatavilla valitusta ravintolasta</li>\r     <li style=\"text-decoration:overline\">Ravintolat kartalle</li>\r     <li>Lähin ravintola korostettu/valittu automaattisesti</li>\r </ul>",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

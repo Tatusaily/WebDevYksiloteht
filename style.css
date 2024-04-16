@@ -33,3 +33,21 @@ nav{
     margin: 1rem;
     border: 1px solid black;
 }
+.user-div-icon{
+    display: block;
+    background-color: rgb(255, 0, 0);
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    margin-right: 1rem;
+    border: 2px solid #FFFFFF
+}
+.rest-div-icon{
+    display: block;
+    background-color: rgb(0, 0, 255);
+    border-radius: 50%;
+    width: 4rem;
+    height: 42rem;
+    margin-right: 1rem;
+    border: 2px solid #FFFFFF
+}

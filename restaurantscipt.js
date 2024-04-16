@@ -1,5 +1,7 @@
 const restaurants = [];
 const usercoords = [];
+const userIcon = L.divIcon({className: 'user-div-icon'});
+const restIcon = L.divIcon({className: 'rest-div-icon'});
 
 (async function(){
     try{
@@ -34,21 +36,28 @@ const elementMaker = (type, text = "", id) => {
  */
 const refreshRestRestaurants = () => {
     markergroup.clearLayers();
+    // also refresh user
+    const marker = L.marker(usercoords, {icon: userIcon}).addTo(markergroup);
     const list = elementMaker("ul", "", "restList");
     restaurants.forEach(restaurant => {
-
-        const marker = L.marker([restaurant.location.coordinates[1], restaurant.location.coordinates[0]]).addTo(markergroup);
+        // Marker for each restaurant
+        const marker = L.marker([restaurant.location.coordinates[1], restaurant.location.coordinates[0]], {icon: restIcon}).addTo(markergroup);
         marker.on('click', function(){
             //TODO: Show menu to user
             console.log(restaurant);
         });
-
-        const listItem = elementMaker("li", restaurant.name);
-        listItem.onclick = function(){
+        // List item for each restaurant
+        const li2 = elementMaker("ul");
+        li2.onclick = function(){
             leafmap.setView([restaurant.location.coordinates[1], restaurant.location.coordinates[0]], 13);
         };
-        listItem.appendChild(elementMaker("ul", restaurant.distance.toFixed(1) + " km"));
+        li2.appendChild(elementMaker("li", restaurant.name));
+        li2.appendChild(elementMaker("li", `${restaurant.address}, ${restaurant.city}`));
+        li2.appendChild(elementMaker("li", restaurant.distance.toFixed(1) + " km"));
+        li2.appendChild(elementMaker("li", restaurant.company));
+        list.appendChild(li2);
     });
+    document.getElementById("restlist").replaceWith(list);
 };
 
 /**
@@ -70,14 +79,6 @@ async function getRestaurants(){
             data.forEach(restaurant => {
                 restaurants.push(restaurant);
             });
-            // Add markers to map
-            restaurants.forEach(restaurant => {
-                const marker = L.marker([restaurant.location.coordinates[1], restaurant.location.coordinates[0]]).addTo(markergroup);
-                marker.on('click', function(){
-                    //TODO: Show menu to user
-                    console.log(restaurant);
-                });
-            });
         });
         return Promise.resolve("Restaurants fetched");
     }catch(error){
@@ -91,7 +92,9 @@ function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
 }
 function success(pos) {
+    // Update user coordinates, move map, put red marker
     usercoords.push(pos.coords.latitude, pos.coords.longitude);
+    leafmap.setView(usercoords, 13);
     console.log(usercoords);
 }
 async function getUserPos(){
