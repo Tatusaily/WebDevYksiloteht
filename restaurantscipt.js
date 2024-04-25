@@ -166,7 +166,7 @@ const refreshRestRestaurants = () => {
         };
         li2.appendChild(elementMaker("li", restaurant.name));
         li2.appendChild(elementMaker("li", `${restaurant.address}, ${restaurant.city}`));
-        li2.appendChild(elementMaker("li", restaurant.distance.toFixed(1) + " km"));
+        li2.appendChild(elementMaker("li", (restaurant.distance/1000).toFixed(2) + " km"));
         li2.appendChild(elementMaker("li", restaurant.company));
         list.appendChild(li2);
     });
