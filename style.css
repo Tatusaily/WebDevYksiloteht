@@ -33,6 +33,11 @@ nav{
     margin: 1rem;
     border: 1px solid black;
 }
+#restdiv {
+    overflow-y: scroll;
+    max-height: 30rem;
+    border: 2px solid rgb(0, 0, 255);
+}
 .user-div-icon{
     display: block;
     background-color: rgb(255, 0, 0);
