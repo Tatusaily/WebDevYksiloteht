@@ -54,6 +54,8 @@ const menumaker = async (restaurant, modal) => {
         modal.close();
     };
     topbar.appendChild(closebutton);
+    const namefield = elementMaker("h2", restaurant.name);
+    topbar.appendChild(namefield);
     const menubody = elementMaker("div", "", "menubody");
     modal.appendChild(menubody);
     let dailylist;
@@ -63,6 +65,8 @@ const menumaker = async (restaurant, modal) => {
     getRestaurantMenu(restaurant._id).then((data) => {
         if (data) {
             const [dailydata, weeklydata] = [data[0], data[1]];
+            
+            /* Daily menu */
             dailylist = elementMaker("ul", "", "dailymenu");
             if (dailydata.error){
                 dailylist.appendChild(elementMaker("li", dailydata.error));
@@ -77,39 +81,34 @@ const menumaker = async (restaurant, modal) => {
             }
             menubody.appendChild(dailylist);
 
-            weeklylist = elementMaker("ul", "", "weeklymenu");
+
+            /* Weekly menu */
+            const weeklydiv = elementMaker("div", "", "weeklydiv");
             if (!weeklydata.days || weeklydata.days.length === 0){
-                weeklylist.appendChild(elementMaker("li", weeklydata.error));
+                weeklydiv.appendChild(elementMaker("h4", weeklydata.error));
             } else {
                 weeklydata.days.forEach((day) => {
-                    const li = elementMaker("li", "");
-                    li.appendChild(elementMaker("h3", day.date ? day.name : "No day name"));
-                    day.courses.forEach((dish) => {
-                        const dishli = elementMaker("li", "");
-                        dishli.appendChild(elementMaker("h4", dish.name ? dish.name : "No name"));
-                        dishli.appendChild(elementMaker("p", dish.price ? dish.price : "No price"));
-                        dishli.appendChild(elementMaker("p", dish.diets ? dish.diets : "No allergens"));
-                        li.appendChild(dishli);
+                    makeWeeklyCard(day).then((card) => {
+                        weeklydiv.appendChild(card);
                     });
-                    weeklylist.appendChild(li);
                 });
             }
-            weeklylist.style.display = "none";
-            menubody.appendChild(weeklylist);
+            weeklydiv.style.display = "none";
+            menubody.appendChild(weeklydiv);
 
             const dailybutton = elementMaker("button", "Daily", "dailyButton");
             dailybutton.onclick = function(){
-                dailylist.style.display = "block";
-                weeklylist.style.display = "none";
+                dailylist.style.display = "flex";
+                weeklydiv.style.display = "none";
             };
-            menubody.appendChild(dailybutton);
+            topbar.appendChild(dailybutton);
             
             const weeklybutton = elementMaker("button", "Weekly", "weeklyButton");
             weeklybutton.onclick = function(){
                 dailylist.style.display = "none";
-                weeklylist.style.display = "block";
+                weeklydiv.style.display = "flex";
             };
-            menubody.appendChild(weeklybutton);
+            topbar.appendChild(weeklybutton);
 
         } else {
             console.error("Restaurant data is not ready:", data);
@@ -224,4 +223,19 @@ async function getUserPos(){
         console.error(error);
         window.alert("Error fetching user position");
     }
+};
+
+async function makeWeeklyCard(daydata){
+    const card = elementMaker("div", "", "weeklycard");
+    card.appendChild(elementMaker("h3", daydata.date ? daydata.date : "No day"));
+    const dishlist = elementMaker("ul", "", "dishlist");
+    card.appendChild(dishlist);
+    daydata.courses.forEach((dish) => {
+        const dishElement = elementMaker("li", "");
+        dishElement.appendChild(elementMaker("h4", dish.name ? dish.name : "No name"));
+        dishElement.appendChild(elementMaker("p", dish.price ? dish.price : "No price"));
+        dishElement.appendChild(elementMaker("p", dish.diets ? dish.diets : "No allergens"));
+        dishlist.appendChild(dishElement);
+    });
+    return card;
 };

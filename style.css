@@ -56,3 +56,45 @@ nav{
     margin-right: 1rem;
     border: 2px solid #FFFFFF
 }
+
+/* MODAL */
+#menuModal{
+    overflow-y: scroll;
+    width: fit-content;
+    max-width: 60%;
+    height: 70%;
+    padding: 5px;
+}
+#topbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border: 1px solid black;
+}
+#menubody {
+    padding: 0px;
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+#weeklydiv {
+    display: flex;
+    flex-direction: row;
+    padding: 0px;
+    background-color: rgb(255, 255, 255);
+    justify-content: space-evenly;
+    width: 100%;
+}
+#weeklycard{
+    display: flex;
+    margin: 0.1rem;
+    border: solid 1px black;
+    background-color: rgb(255, 255, 255);
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+}
