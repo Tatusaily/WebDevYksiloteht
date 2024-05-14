@@ -13,6 +13,8 @@
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>
     <!-- OWN -->
+    <script src="globalfuncs.js"></script>
+    <script src="loginauth.js" defer></script>
     <script src="mapmaker.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <script src="restaurantscipt.js" defer></script>
@@ -23,13 +25,16 @@
         <nav>
             <div id="login">
             <img src="resources/64cat.jpg" alt="logo">
-            <input type="button" value="Login">
-            <input type="button" value="Sign Up">
+            <input type="button" value="Login" id="toploginbutton">
+            <input type="button" value="Sign Up" id="topregisterbutton">
             </div>
         </nav>
     </header>
 
     <main>
+        <dialog id="formdiv">
+            <p>Close this window by clicking outside</p>
+        </dialog>
         <div id="content">
             <div id="mapbox"></div>
             <div id="sidelist">

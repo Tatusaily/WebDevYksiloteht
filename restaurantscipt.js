@@ -22,17 +22,6 @@ const restIcon = L.divIcon({className: 'rest-div-icon'});
     }
 })();
 
-/** Quick HTML element maker
- * 
- * type - textcontent - id
-*/
-const elementMaker = (type, text = "", id) => {
-    const element = document.createElement(type);
-    element.textContent = text;
-    element.id = id;
-    return element;
-  };
-
 /** Modal Menu Maker
  * 
  * @param {object} restaurant
@@ -142,7 +131,7 @@ const getRestaurantMenu = async (id) => {
 const refreshRestRestaurants = () => {
     markergroup.clearLayers();
     // also refresh user
-    const marker = L.marker(usercoords, {icon: userIcon}).addTo(markergroup);
+    L.marker(usercoords, {icon: userIcon}).addTo(markergroup);
     const list = elementMaker("ul", "", "restList");
     restaurants.forEach(restaurant => {
         // Marker for each restaurant

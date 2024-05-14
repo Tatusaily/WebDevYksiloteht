@@ -19,6 +19,7 @@ nav{
     order: 1;
     flex-grow: 1;
     height: 30rem;
+    width: 100%;
 }
 #sidelist{
     border: 2px solid rgb(29, 182, 9);
@@ -30,14 +31,30 @@ nav{
 }
 #sidelist ul{
     list-style-type: none;
-    margin: 1rem;
+    margin: 0.5rem;
     border: 1px solid black;
+    padding: 0rem;
 }
 #restdiv {
     overflow-y: scroll;
     max-height: 30rem;
     border: 2px solid rgb(0, 0, 255);
 }
+
+#formdiv {
+    border: 2px solid rgb(255, 0, 0);
+    order: 2;
+    flex-grow: 0.75;
+    padding: 1rem;
+    z-index: 1000;
+}
+#formdiv form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .user-div-icon{
     display: block;
     background-color: rgb(255, 0, 0);
