@@ -113,12 +113,12 @@ const menumaker = async (restaurant, modal) => {
 const getRestaurantMenu = async (id) => {
     const requestdaily = fetch(`https://10.120.32.94/restaurant/api/v1/restaurants/daily/${id}/fi`)
         .then(response => response.json());
-    if (!requestdaily.ok) {
+    if (!requestdaily.ok || requestdaily.status === 404 || requestdaily.courses.length === 0) {
         requestdaily.error = "Daily menu not available"};
 
     const requestweekly = fetch(`https://10.120.32.94/restaurant/api/v1/restaurants/weekly/${id}/fi`)
         .then(response => response.json());
-    if (!requestweekly.ok) {
+    if (!requestweekly.ok || requestweekly.status === 404 || requestweekly.days.length === 0) {
         requestweekly.error = "Weekly menu not available"};
 
     return Promise.all([requestdaily, requestweekly]);
