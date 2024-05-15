@@ -1,18 +1,13 @@
-<ul>
-    <h3>Minimi:</h3>
-    <li style="text-decoration:overline">Ravintolat listattu</li> 
-    <li style="text-decoration:overline"> Päivän / Viikon ruokalista saatavilla valitusta ravintolasta</li>
-    <li style="text-decoration:overline">Ravintolat kartalle</li>
-    <li>Lähin ravintola korostettu/valittu automaattisesti</li>
-</ul>
+<h1>Food Finder</h1>
+<h3>Suoritetut vaatimukset</h3>
 
 <ul>
-    <h3>Medium:</h3>
-    <li>Kirjautuminen</li>
-        <ul>
-        <li>Suosikkiravintolan valitseminen</li>
-        <li>Käyttäjätiedot ja niiden päivittäminen (Nimi, osoite, kuva)</li>
-        </ul>
-    <li>Ravintoloiden filtteröinti palveluntarjoajan, kaupungin, etäisyyden mukaan</li>
-    <li>Ravintoloiden filtteröinti ruoka-allergian mukaan</li>
+    <li> Ravintolat listattu ja päivän/viikon ruokalista saatavilla </li>
+    <li> Julkaistu users.metropolia </li>
+    <li> Lähdekoodi GitHubissa </li>
+    <li> Hyvät Git -käytänteet </li>
+    <li> Kirjautuminen / Rekisteröiminen </li>
+    <li> Asiakas voi päivittää profiilikuvan </li>
+    <li> Ravintolat on listattu loogisesti (etäisyyden mukaan) </li>
+    <li> Ravintolat on kartalla </li>
 </ul>
