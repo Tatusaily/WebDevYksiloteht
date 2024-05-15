@@ -41,6 +41,12 @@ nav{
     border: 2px solid rgb(0, 0, 255);
 }
 
+#profilepic{
+    order: 1;
+    width: 5rem;
+    height: 5rem;
+}
+
 #formdiv {
     border: 2px solid rgb(255, 0, 0);
     order: 2;
