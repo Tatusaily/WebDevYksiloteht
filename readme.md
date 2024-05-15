@@ -3,7 +3,7 @@
 
 <ul>
     <li> Ravintolat listattu ja päivän/viikon ruokalista saatavilla </li>
-    <li> Julkaistu users.metropolia </li>
+    <li> Julkaistu [users.metropolia](https://users.metropolia.fi/~tatusail/WebDevYksiloteht/main.html) </li>
     <li> Lähdekoodi GitHubissa </li>
     <li> Hyvät Git -käytänteet </li>
     <li> Kirjautuminen / Rekisteröiminen </li>
